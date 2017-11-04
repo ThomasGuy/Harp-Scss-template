@@ -1,0 +1,18 @@
+# Webstorm
+.idea
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Build directories
+build
+www
+
+# Dependency directory
+node_modules
