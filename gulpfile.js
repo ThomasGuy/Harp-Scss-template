@@ -1,19 +1,18 @@
-var gulp        = require('gulp');
-var browserSync = require('browser-sync');
-var reload      = browserSync.reload;
-var harp        = require('harp');
-var prefixer    = require('gulp-autoprefixer');
+const gulp = require('gulp');
+const harp = require('harp');
+// const prefixer = require('gulp-autoprefixer');
+const browserSync = require('browser-sync');
 
-
+const { reload: andload } = browserSync;
 /**
  * Serve the Harp Site from the src directory
  */
-gulp.task('serve', function () {
-  harp.server(__dirname + '/app', {
+gulp.task('serve', () => {
+  harp.server((__dirname, '/app').resolve(), {
     port: 9000
-  }, function () {
+  }, () => {
     browserSync({
-      proxy: "localhost:9000",
+      proxy: 'localhost:9000',
       open: false,
       /* Hide the notification. It gets annoying */
       notify: {
@@ -23,16 +22,16 @@ gulp.task('serve', function () {
     /**
      * Watch for scss changes, tell BrowserSync to refresh main.css
      */
-    gulp.watch(["app/stylesheets/**/*.scss"], function () {
-      reload("app/stylesheets/main.css", {stream: true});
+    gulp.watch(['app/stylesheets/**/*.scss'], () => {
+      andload('app/stylesheets/main.css', { stream: true });
     });
     /**
      * Watch for all other changes, reload the whole page
      */
-    gulp.watch(["./**/*.ejs", "./**/*.js", "./**/*.json", "./**/*.md"], function () {
-      reload();
+    gulp.watch(['./**/*.ejs', './**/*.js', './**/*.json', './**/*.md'], () => {
+      andload();
     });
-  })
+  });
 });
 
 /**
